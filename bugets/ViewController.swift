@@ -50,7 +50,8 @@ class ViewController: UIViewController {
     
     func addLabel(percentage: CGFloat, startDegree: CGFloat) {
         
-        let textCenterDegree = startDegree + 360 * percentage / 2 / 100
+        // 把文字放在部分圓環的中間
+        let textCenterDegree = startDegree + 360 * percentage/100 * 1/2
         let aDegree = CGFloat.pi/180
         let radius: CGFloat = 100
         let lineWidth: CGFloat = 20
@@ -89,11 +90,11 @@ class ViewController: UIViewController {
     
     func addRandomColorRing() {
         let aDegree = CGFloat.pi/180
-        let lineWidth: CGFloat = 40
-        let radius: CGFloat = 100
+        let lineWidth: CGFloat = 60
+        let radius: CGFloat = 80
         var startDegree: CGFloat = 270
-        let center = CGPoint(x: 45 + lineWidth + radius, y: 450 + lineWidth + radius)
-        var percentages: [CGFloat] = [25, 15, 7, 33, 20]
+        let center = CGPoint(x: 60 + lineWidth + radius, y: 450 + lineWidth + radius)
+        var percentages: [CGFloat] = [26, 14, 8, 32, 20]
         
         for percentage in percentages {
             let endDegree = startDegree + 360 * percentage / 100
@@ -101,7 +102,7 @@ class ViewController: UIViewController {
             
             let percentageLayer = CAShapeLayer()
             percentageLayer.path = percentagePath.cgPath
-            percentageLayer.strokeColor = UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1).cgColor
+            percentageLayer.strokeColor = UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 0.5).cgColor
             percentageLayer.fillColor = UIColor.clear.cgColor
             percentageLayer.lineWidth = lineWidth
             view.layer.addSublayer(percentageLayer)
@@ -110,7 +111,7 @@ class ViewController: UIViewController {
             let textPath = UIBezierPath(arcCenter: center, radius: radius, startAngle: aDegree * startDegree, endAngle: aDegree * textCenterDegree, clockwise: true)
             let label = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
             label.backgroundColor = UIColor.white
-            label.font = UIFont.systemFont(ofSize: 10)
+            label.font = UIFont.systemFont(ofSize: 14)
             label.text = "\(percentage)%"
             label.sizeToFit()
             label.center = textPath.currentPoint
